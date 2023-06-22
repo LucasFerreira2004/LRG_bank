@@ -1,0 +1,5 @@
+1 - 4 funões
+2 - usar alocação dinâmica
+3 - usar ponteiros
+4 - menu (dizer opções para o crud)
+5 - divisão em arquivos

@@ -1,0 +1,62 @@
+
+    for (int i = 0; i < tam; i++){
+        scanf(" %[^\n]", vet_contas[i].n_proprietario);
+        scanf("%u %lf %c", &vet_contas[i].id, &vet_contas[i].saldo, &vet_contas[i].tipo);
+
+        createAccount(&vet_contas, &vet_contas[i], &conta_index);
+    }
+
+
+    for (int i = 0; i < tam; i++){
+        printf("%s\n", vet_contas[i].n_proprietario);
+    }
+
+
+/*
+
+    printf("============BEM VINDO AO BANCO LRG============\n\n");
+    printf("Operacoes:\n");
+    printf("1 -> Criar conta\n");
+    printf("2 -> Pesquisar conta\n");
+    printf("3 -> Sacar ou Depositar\n");
+    printf("4 -> Deletar conta\n");
+    printf("0 -> Sair do Banco\n");
+
+    scanf("%d", &operacao);
+
+    switch (operacao){
+        case 1:
+            int rep = 1;
+            while (rep){
+                int conta_index_copy = conta_index;
+                printf("Insira os dados para a criacao de uma nova conta!\n");
+        
+                scanf(" %[^\n]", vet_contas[conta_index].n_proprietario);
+                scanf("%u %lf %c", &vet_contas[conta_index].id, &vet_contas[conta_index].saldo, &vet_contas[conta_index].tipo);
+                createAccount(&vet_contas, &vet_contas[conta_index], &conta_index);
+
+                printf("a conta com os dados a seguir foi criada:\n");
+                describeAccount(vet_contas[conta_index_copy]);
+                printf("\nDigite 1 para inserir uma nova conta ou 0 para voltar a tela inicial: ");
+                scanf("%d", &rep);
+            }
+            break;
+        case 2: 
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 0:
+            break;
+        default:
+    }
+
+
+    for (int i = 0; i < conta_index; i++){
+        describeAccount(vet_contas[i]);
+    }
+
+    //Conta* new_vet = (Conta*)realloc(vet, (*index + 1) * sizeof(Conta));
+
+*/
