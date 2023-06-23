@@ -4,10 +4,10 @@
 
 // Create
 //nesta função temos que *vet é um ponteiro para ponteiro pois o vetor original já em um ponteiro, pois é vetor dinâmico
- Conta* createAccount(Conta* vet, Conta new_account, unsigned int* index, unsigned int* id) {
+ Conta* createAccount(Conta* vet, Conta new_account, unsigned int* tam, unsigned int* id) {
     new_account.id = *id;
-    Conta* new_vet = (Conta*) malloc ((*index + 1) * sizeof(Conta));
-    for (int i = 0; i < *index; i++) new_vet[i] = vet[i]; 
+    Conta* new_vet = (Conta*) malloc ((*tam + 1) * sizeof(Conta));
+    for (int i = 0; i < *tam; i++) new_vet[i] = vet[i]; 
     
     if (new_vet == NULL) {
         // Verifica se a realocação falhou
@@ -15,9 +15,9 @@
         return vet;
     }
 
-    new_vet[*index] = new_account;
+    new_vet[*tam] = new_account;
 
-    (*index)++; //aumentando o index principal;
+    (*tam)++; //aumentando o tam principal;
     (*id)++;
     free(vet);
     return new_vet;
@@ -25,57 +25,41 @@
 
 // Read 
 // A função retorna o INDICE onde o determinado elemento está
-int getAccount(Conta* vet, unsigned int id, unsigned int index){
-    for (int i = 0; i < index; i++){
-      //  printf("estamos no index: %u. Estamos no id: %u\n", i, index);
+int getAccountIndex(Conta* vet, unsigned int id, unsigned int tam){
+    for (int i = 0; i < tam; i++){
         if (vet[i].id == id) return i;
     }
-     //   printf("passou do for\n");
+
     return -1;
 }
 //retorna 1 ou 0, se foi encontrado ou não.
-int searchAccount(Conta* vet, unsigned int id, unsigned int index) {
-    for (int i = 0; i <= index; i++){
+int searchAccount(Conta* vet, unsigned int id, unsigned int tam) {
+    for (int i = 0; i < tam; i++){
         if (vet[i].id == id) return 1;
     }
     
     return 0;
 }
 
-void deposit(unsigned int id, double amount) {}
-
-void withdraw(unsigned int id, double amount) {}
-
-int deleteAccount(unsigned int id, unsigned int* index, Conta *conta) {
-    int tem_id = -1;
-
-    for (unsigned int i = 0; i < *index; i++) {
-        printf("estamos no index: %u. Estamos no id: %u\n", *index, i);
-        if (conta[i].id == id) {
-            tem_id = i;
-            break;
-        }
-    }
-
-    if (tem_id == -1)
-        return 0;  // Conta com o ID fornecido não encontrada
-
-    for (unsigned int i = tem_id; i < *index - 1; i++) {
-        conta[i] = conta[i + 1];
-    }
-    (*index)--;
-    return 1;  // Conta deletada com sucesso
+// Update
+void deposit(Conta* vet, unsigned int index, double amount) {
+    vet[index].saldo += amount;
 }
 
-Conta* newDeleteAccount(Conta* vet, unsigned int id, unsigned int* index){
+void withdraw(Conta* vet, unsigned int tam_required, double amount) {
+    vet[tam_required].saldo -= amount;
+}
+
+// Delete
+Conta* deleteAccount(Conta* vet, unsigned int id, unsigned int* tam){
     unsigned int k = 0;
-    Conta* new_vet = (Conta*) malloc ((*index - 1) * sizeof(Conta));
-    for (int i = 0; i < *index; i++){ 
+    Conta* new_vet = (Conta*) malloc ((*tam - 1) * sizeof(Conta));
+    for (int i = 0; i < *tam; i++){ 
         if (vet[i].id != id) new_vet[k++] =  vet[i];
     } 
 
     free(vet);
-    (*index)--;
+    (*tam)--;
 
     return new_vet;
 }

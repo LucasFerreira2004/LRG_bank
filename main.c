@@ -4,8 +4,7 @@
 
 int main() {
     int cont = 1; //variavel responsavel por garantir a possibilidade de repetição
-    unsigned int n_contas;
-    int conta_index = 0;
+    int conta_tam = 0;
     unsigned int conta_id = 1;
     unsigned int id_pesquisa;
 
@@ -33,9 +32,9 @@ int main() {
                     scanf("%c", &account.tipo); //esse scanf armazena o \n do scan acima. É uma gambiarra.
                     printf("Tipo da conta (c/p): "); scanf("%c", &account.tipo);
 
-                    vet_contas = createAccount(vet_contas, account, &conta_index, &conta_id);
+                    vet_contas = createAccount(vet_contas, account, &conta_tam, &conta_id);
                     printf("conta com os dados a seguir acaba de ser criada!: \n");
-                    describeAccount(vet_contas[conta_index - 1]);
+                    describeAccount(vet_contas[conta_tam - 1]);
 
                     printf("deseja adicinar nova conta? (1/0): ");
                     scanf("%d", &cont);
@@ -48,7 +47,7 @@ int main() {
                     printf("Insira os dados para a pesquisa de uma conta!\n");
                     printf("Id: "); scanf("%u", &id_pesquisa);
 
-                    unsigned int index_pesquisa = getAccount(vet_contas, id_pesquisa, conta_index);
+                    unsigned int index_pesquisa = getAccountIndex(vet_contas, id_pesquisa, conta_tam);
 
                     if(index_pesquisa == -1){
                         printf("Conta nao encontrada!\n");
@@ -61,30 +60,48 @@ int main() {
                     scanf("%d", &cont); 
                 }while (cont);
                 break;
+                
             case 3:
-                printf("Insira os dados para depositar ou sacar de uma conta!\n");
+                cont = 1;
+                do{
+                    printf("Insira os dados para depositar ou sacar de uma conta!\n");
                     printf("Id: "); scanf("%u", &id_pesquisa);
 
-                 unsigned int index_pesquisa = getAccount(vet_contas, id_pesquisa, conta_index);
+                    unsigned int index_pesquisa = getAccountIndex(vet_contas, id_pesquisa, conta_tam);
 
-                 if(index_pesquisa != -1){
-                        char opc;
-                        print("Deseja sacar ou depositar (d/s): ");
-                 }else{
-                    (printf("ID nao encontrado\n"));
-                 }
+                    if(index_pesquisa != -1){
+                            char opc;
+                            double amount;
+                            printf("Deseja sacar ou depositar (s/d): "); scanf(" %c", &opc);
 
+                            if(opc == 'd'){
+                                printf("Digite o valor que deseja depositar: "); scanf("%lf", &amount);
+                                deposit(vet_contas, index_pesquisa, amount);
+                            }else if(opc == 's'){
+                                printf("Digite o valor que deseja sacar: "); scanf("%lf", &amount);
+                                withdraw(vet_contas, index_pesquisa, amount);
+                            }
+                            
+                            printf("Conta de id %u alterada com sucesso\n", id_pesquisa);
+                    }else{
+                        (printf("ID nao encontrado\n"));
+                    }
+
+                    printf("deseja sacar ou depositar novamene nessa ou outra conta? (1/0): ");
+                    scanf("%d", &cont); 
+                }while(cont);
                 break;
+
             case 4:
                 cont = 1;
                 do{
                     printf("Insira os dados para a remoção de uma conta!\n");
                     printf("Id: "); scanf("%u", &id_pesquisa);
 
-                    unsigned int index_pesquisa = getAccount(vet_contas, id_pesquisa, conta_index);
+                    unsigned int index_pesquisa = getAccountIndex(vet_contas, id_pesquisa, conta_tam);
 
                     if(index_pesquisa != -1){
-                        vet_contas = newDeleteAccount(vet_contas, id_pesquisa, &conta_index);
+                        vet_contas = deleteAccount(vet_contas, id_pesquisa, &conta_tam);
                         printf("Conta deletada com sucesso!\n");
                     }else{
                         (printf("ID nao encontrado\n"));
@@ -98,13 +115,13 @@ int main() {
                 break;
                 
             default:
+                printf("Opção inválida\n");
             break;
         }
     }while(operacao);
 
-  //  printf("Conta indice %u\n", conta_index);
-
-    for (int i = 0; i < conta_index; i++) { //aqui temos o < pois o índice, depois de tantas operações, está reprentando o tamanho, ou seja, uma possição 
+    printf("======== DADOS DE TODAS AS CONTAS APÓS A EXECUÇÃO DAS OPERAÇÕES ========\n");
+    for (int i = 0; i < conta_tam; i++) { //aqui temos o < pois o índice, depois de tantas operações, está reprentando o tamanho, ou seja, uma possição 
         describeAccount(vet_contas[i]);    //propicia para uma gravação futura no vetor. 
         printf("\n");
     }

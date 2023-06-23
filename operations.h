@@ -12,21 +12,17 @@ typedef struct {
 Conta* createAccount(Conta* vet, Conta new_account, unsigned int* index, unsigned int* id);
 
 //read
-int getAccount(Conta* vet, unsigned int id, unsigned int index);
+int getAccountIndex(Conta* vet, unsigned int id, unsigned int index);
 int searchAccount(Conta* vet, unsigned int id, unsigned int index);
 
 //update
-void deposit(unsigned int id, double amount);
-void withdraw(unsigned int id, double amount);
+void deposit(Conta* vet, unsigned int index_required, double amount);
+void withdraw(Conta* vet, unsigned int index_required, double amount);
 
 //delete
-int deleteAccount(unsigned int id, unsigned int* index, Conta *conta);
-Conta* newDeleteAccount(Conta* vet, unsigned int id, unsigned int* index);
-
+Conta* deleteAccount(Conta* vet, unsigned int id, unsigned int* index);
 
 //outras
 void describeAccount(Conta account);
-void menuCreate();
-
 
 #endif // OPERATIONS_H_INCLUDED
