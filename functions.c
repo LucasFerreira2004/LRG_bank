@@ -19,21 +19,25 @@
 
     (*index)++; //aumentando o index principal;
     (*id)++;
+    free(vet);
     return new_vet;
 }
 
 // Read 
 // A função retorna o INDICE onde o determinado elemento está
 int getAccount(Conta* vet, unsigned int id, unsigned int index){
-    for (int i = 0; i <= index; i++)
+    for (int i = 0; i < index; i++){
+      //  printf("estamos no index: %u. Estamos no id: %u\n", i, index);
         if (vet[i].id == id) return i;
-
+    }
+     //   printf("passou do for\n");
     return -1;
 }
-
+//retorna 1 ou 0, se foi encontrado ou não.
 int searchAccount(Conta* vet, unsigned int id, unsigned int index) {
-    for (int i = 0; i <= index; i++)
+    for (int i = 0; i <= index; i++){
         if (vet[i].id == id) return 1;
+    }
     
     return 0;
 }
@@ -46,6 +50,7 @@ int deleteAccount(unsigned int id, unsigned int* index, Conta *conta) {
     int tem_id = -1;
 
     for (unsigned int i = 0; i < *index; i++) {
+        printf("estamos no index: %u. Estamos no id: %u\n", *index, i);
         if (conta[i].id == id) {
             tem_id = i;
             break;
@@ -62,6 +67,18 @@ int deleteAccount(unsigned int id, unsigned int* index, Conta *conta) {
     return 1;  // Conta deletada com sucesso
 }
 
+Conta* newDeleteAccount(Conta* vet, unsigned int id, unsigned int* index){
+    unsigned int k = 0;
+    Conta* new_vet = (Conta*) malloc ((*index - 1) * sizeof(Conta));
+    for (int i = 0; i < *index; i++){ 
+        if (vet[i].id != id) new_vet[k++] =  vet[i];
+    } 
+
+    free(vet);
+    (*index)--;
+
+    return new_vet;
+}
 
 void describeAccount(Conta account){
     printf("id: %u\n", account.id);

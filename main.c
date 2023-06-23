@@ -33,10 +33,7 @@ int main() {
                     scanf("%c", &account.tipo); //esse scanf armazena o \n do scan acima. É uma gambiarra.
                     printf("Tipo da conta (c/p): "); scanf("%c", &account.tipo);
 
-                    Conta *old = vet_contas;
-
                     vet_contas = createAccount(vet_contas, account, &conta_index, &conta_id);
-                    free(old);
                     printf("conta com os dados a seguir acaba de ser criada!: \n");
                     describeAccount(vet_contas[conta_index - 1]);
 
@@ -65,6 +62,18 @@ int main() {
                 }while (cont);
                 break;
             case 3:
+                printf("Insira os dados para depositar ou sacar de uma conta!\n");
+                    printf("Id: "); scanf("%u", &id_pesquisa);
+
+                 unsigned int index_pesquisa = getAccount(vet_contas, id_pesquisa, conta_index);
+
+                 if(index_pesquisa != -1){
+                        char opc;
+                        print("Deseja sacar ou depositar (d/s): ");
+                 }else{
+                    (printf("ID nao encontrado\n"));
+                 }
+
                 break;
             case 4:
                 cont = 1;
@@ -72,10 +81,15 @@ int main() {
                     printf("Insira os dados para a remoção de uma conta!\n");
                     printf("Id: "); scanf("%u", &id_pesquisa);
 
-                    if(deleteAccount(id_pesquisa, &conta_index, vet_contas)){
-                        conta_index --;
+                    unsigned int index_pesquisa = getAccount(vet_contas, id_pesquisa, conta_index);
+
+                    if(index_pesquisa != -1){
+                        vet_contas = newDeleteAccount(vet_contas, id_pesquisa, &conta_index);
                         printf("Conta deletada com sucesso!\n");
-                    }else (printf("ID nao encontrado\n"));
+                    }else{
+                        (printf("ID nao encontrado\n"));
+                    } 
+                    
                     printf("deseja remover outra conta? (1/0): ");
                     scanf("%d", &cont); 
                 }while (cont);
@@ -88,8 +102,10 @@ int main() {
         }
     }while(operacao);
 
-    for (int i = 0; i <= conta_index; i++) {
-        describeAccount(vet_contas[i]);
+  //  printf("Conta indice %u\n", conta_index);
+
+    for (int i = 0; i < conta_index; i++) { //aqui temos o < pois o índice, depois de tantas operações, está reprentando o tamanho, ou seja, uma possição 
+        describeAccount(vet_contas[i]);    //propicia para uma gravação futura no vetor. 
         printf("\n");
     }
 

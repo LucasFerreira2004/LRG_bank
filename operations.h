@@ -21,6 +21,8 @@ void withdraw(unsigned int id, double amount);
 
 //delete
 int deleteAccount(unsigned int id, unsigned int* index, Conta *conta);
+Conta* newDeleteAccount(Conta* vet, unsigned int id, unsigned int* index);
+
 
 //outras
 void describeAccount(Conta account);
