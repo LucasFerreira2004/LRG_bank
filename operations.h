@@ -16,9 +16,8 @@ int getAccountIndex(Conta* vet, unsigned int id, unsigned int index);
 int searchAccount(Conta* vet, unsigned int id, unsigned int index);
 
 //update
-void deposit(Conta* vet, unsigned int index_required, double amount);
-void withdraw(Conta* vet, unsigned int index_required, double amount);
-int verifyWithdraw(double acount_balance, double withdraw);
+int deposit(Conta* vet, unsigned int index_required, double amount);
+int withdraw(Conta* vet, unsigned int index_required, double amount);
 
 //delete
 Conta* deleteAccount(Conta* vet, unsigned int id, unsigned int* index);

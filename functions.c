@@ -42,17 +42,22 @@ int searchAccount(Conta* vet, unsigned int id, unsigned int tam) {
 }
 
 // Update
-void deposit(Conta* vet, unsigned int index, double amount) {
-    vet[index].saldo += amount;
+int deposit(Conta* vet, unsigned int index_required, double amount) {
+    if (amount >= 0){
+        vet[index_required].saldo += amount;
+        return 1;
+    }
+    return 0;
 }
 
-void withdraw(Conta* vet, unsigned int tam_required, double amount) {
-    vet[tam_required].saldo -= amount;
+int withdraw(Conta* vet, unsigned int index_required, double amount) {
+    if (vet[index_required].saldo >= amount){
+        vet[index_required].saldo -= amount;
+        return 1;
+    }
+    return 0;
 }
 
-int verifyWithdraw(double acount_balance, double withdraw){
-    
-}
 
 // Delete
 Conta* deleteAccount(Conta* vet, unsigned int id, unsigned int* tam){

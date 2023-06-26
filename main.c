@@ -76,16 +76,25 @@ int main() {
                             char opc;
                             double amount;
                             printf("Deseja sacar ou depositar (s/d): "); scanf(" %c", &opc);
-
+                            
                             if(opc == 'd'){
                                 printf("Digite o valor que deseja depositar: "); scanf("%lf", &amount);
-                                deposit(vet_contas, index_pesquisa, amount);
+                                if(deposit(vet_contas, index_pesquisa, amount)){
+                                    printf("deposito bem sucedido!\n");
+                                    printf("Conta de id %u alterada com sucesso\n", id_pesquisa);
+                                }else{
+                                    printf("deposito mal sucedido\n");
+                                }
+
                             }else if(opc == 's'){
                                 printf("Digite o valor que deseja sacar: "); scanf("%lf", &amount);
-                                withdraw(vet_contas, index_pesquisa, amount);
+                                if (withdraw(vet_contas, index_pesquisa, amount)){
+                                    printf("saque bem sucedido!\n");
+                                    printf("Conta de id %u alterada com sucesso\n", id_pesquisa);
+                                }else 
+                                    printf("saque mal sucedido\n");
                             }
                             
-                            printf("Conta de id %u alterada com sucesso\n", id_pesquisa);
                     }else{
                         (printf("ID nao encontrado\n"));
                     }
