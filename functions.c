@@ -50,6 +50,10 @@ void withdraw(Conta* vet, unsigned int tam_required, double amount) {
     vet[tam_required].saldo -= amount;
 }
 
+int verifyWithdraw(double acount_balance, double withdraw){
+    
+}
+
 // Delete
 Conta* deleteAccount(Conta* vet, unsigned int id, unsigned int* tam){
     unsigned int k = 0;

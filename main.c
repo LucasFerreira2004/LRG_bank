@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "operations.h"
+#include <locale.h>
 
 int main() {
+    setlocale(LC_ALL, "Portuguese_Brasil");
+
     int cont = 1; //variavel responsavel por garantir a possibilidade de repetição
     int conta_tam = 0;
     unsigned int conta_id = 1;
@@ -87,7 +90,7 @@ int main() {
                         (printf("ID nao encontrado\n"));
                     }
 
-                    printf("deseja sacar ou depositar novamene nessa ou outra conta? (1/0): ");
+                    printf("deseja sacar ou depositar novamente nessa ou outra conta? (1/0): ");
                     scanf("%d", &cont); 
                 }while(cont);
                 break;
