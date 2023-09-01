@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "operations.h"
 #include <locale.h>
+#include "functions.c"
+#include "operations.h"
 
 int main() {
     setlocale(LC_ALL, "Portuguese_Brasil"); 
@@ -37,13 +38,13 @@ int main() {
 
                     printf("Insira os dados para a criacao de uma nova conta!\n");
                     printf("Nome do proprietario: "); scanf(" %[^\n]", account.n_proprietario);
-                    printf("Sado inicial da conta: "); scanf("%lf", &account.saldo);
-                    scanf("%c", &account.tipo); //esse scanf armazena o \n do scan acima. É uma gambiarra.
+                    printf("Saldo inicial da conta: "); scanf("%lf", &account.saldo);
+                    scanf("%c", &account.tipo); 
                     
                     do{ // operacao invalida para char nao funciona
-                    printf("Tipo da conta (c/p): "); scanf("%c", &account.tipo);
-                    if(account.tipo == 'c' || account.tipo == 'p') break;
-                    else printf("Conta invalida\n");
+                        printf("Tipo da conta (c/p): "); scanf("%c", &account.tipo);
+                        if(account.tipo == 'c' || account.tipo == 'p') break;
+                        else printf("Conta invalida\n");
                     }while(account.tipo != 'c' || account.tipo != 'p');
                     
                     vet_contas = createAccount(vet_contas, account, &conta_tam, &conta_id);
@@ -51,10 +52,10 @@ int main() {
                     describeAccount(vet_contas[conta_tam - 1]);
                     
                     do{
-                    printf("deseja adicinar nova conta? (1/0): ");
-                    scanf("%d", &cont);
-                    if(cont == 1 || cont == 0) break;
-                    else printf("Operacao invalida\n");
+                        printf("deseja adicinar nova conta? (1/0): ");
+                        scanf("%d", &cont);
+                        if(cont == 1 || cont == 0) break;
+                        else printf("Operacao invalida\n");
                     }while (cont != 1 || cont != 0);
                     
                 } while (cont);
@@ -98,13 +99,15 @@ int main() {
                             double amount;
                             
                             do{
-                                printf("Deseja sacar ou depositar (s/d): "); scanf(" %c", &opc);
+                                printf("Deseja sacar ou depositar (s/d): "); 
+                                scanf(" %c", &opc);
                                 if(opc == 'd' || opc == 's') break;
                                 else printf("Operacao invalida\n");
                             }while (opc != 'd' || opc != 's');
 
                             if(opc == 'd'){
-                                printf("Digite o valor que deseja depositar: "); scanf("%lf", &amount);
+                                printf("Digite o valor que deseja depositar: "); 
+                                scanf("%lf", &amount);
                                 if(deposit(vet_contas, index_pesquisa, amount)){
                                     printf("deposito bem sucedido!\n");
                                     printf("Conta de id %u alterada com sucesso. Novo saldo: %.2lf\n", id_pesquisa, vet_contas[index_pesquisa].saldo);
@@ -126,10 +129,10 @@ int main() {
                     }
                     
                     do{
-                    printf("deseja sacar ou depositar em uma nova conta? (1/0): ");
-                    scanf("%d", &cont);
-                    if(cont == 1 || cont == 0) break;
-                    else printf("Operacao invalida\n");
+                        printf("deseja sacar ou depositar em uma nova conta? (1/0): ");
+                        scanf("%d", &cont);
+                        if(cont == 1 || cont == 0) break;
+                        else printf("Operacao invalida\n");
                     }while (cont != 1 || cont != 0);
 
                 }while(cont);
@@ -151,10 +154,10 @@ int main() {
                     } 
                     
                     do{
-                    printf("deseja remover outra conta? (1/0): ");
-                    scanf("%d", &cont);
-                    if(cont == 1 || cont == 0) break;  
-                    else printf("Operacao invalida\n");
+                        printf("deseja remover outra conta? (1/0): ");
+                        scanf("%d", &cont);
+                        if(cont == 1 || cont == 0) break;  
+                        else printf("Operacao invalida\n");
                     }while (cont != 1 || cont != 0); 
                 }while (cont);
                 break;
